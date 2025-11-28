@@ -17,9 +17,6 @@ export default function GuidelinesPage() {
               <Link href="/privacy" className="text-gray-600 hover:text-gray-900">
                 Privacy
               </Link>
-              <Link href="/terms" className="text-gray-600 hover:text-gray-900">
-                Terms
-              </Link>
             </div>
           </div>
         </nav>

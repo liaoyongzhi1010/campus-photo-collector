@@ -17,9 +17,6 @@ export default function PrivacyPage() {
               <Link href="/privacy" className="text-gray-900 font-semibold">
                 Privacy
               </Link>
-              <Link href="/terms" className="text-gray-600 hover:text-gray-900">
-                Terms
-              </Link>
             </div>
           </div>
         </nav>
@@ -119,67 +116,6 @@ export default function PrivacyPage() {
             <p className="text-gray-700 leading-relaxed mt-4">
               By uploading photos, you confirm that you have taken appropriate steps to respect the privacy
               of others and have the right to share the images.
-            </p>
-          </section>
-
-          {/* Data Retention */}
-          <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Data Retention</h2>
-            <p className="text-gray-700 leading-relaxed">
-              Uploaded photos are retained indefinitely as part of our research dataset. Once uploaded,
-              photos become part of the permanent collection. Since we do not collect personal information,
-              we cannot link uploads to specific individuals for removal requests.
-            </p>
-          </section>
-
-          {/* Third-Party Sharing */}
-          <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Third-Party Sharing</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              We do not sell or rent your uploaded content to third parties. However, we may share the
-              dataset in the following contexts:
-            </p>
-            <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
-              <li>With academic researchers for educational and research purposes</li>
-              <li>As part of published research papers or datasets</li>
-              <li>With collaborating institutions under research agreements</li>
-            </ul>
-            <p className="text-gray-700 leading-relaxed mt-4">
-              Any sharing is done with the understanding that the photos are for research and educational
-              purposes only.
-            </p>
-          </section>
-
-          {/* Your Rights */}
-          <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Your Rights and Choices</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Since our service is anonymous and does not collect personal information:
-            </p>
-            <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
-              <li>You can choose to use or not use our service at any time</li>
-              <li>You decide what photos to upload and what descriptions to provide</li>
-              <li>You can review our guidelines before contributing</li>
-              <li>No personal data means no personal profiles to access, correct, or delete</li>
-            </ul>
-          </section>
-
-          {/* Children's Privacy */}
-          <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Children&apos;s Privacy</h2>
-            <p className="text-gray-700 leading-relaxed">
-              Our service is intended for use by individuals associated with the universities (students,
-              faculty, staff, and visitors). We do not knowingly collect photos from children under 13.
-              If you are under 13, please do not use this service.
-            </p>
-          </section>
-
-          {/* Changes to Policy */}
-          <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Changes to This Privacy Policy</h2>
-            <p className="text-gray-700 leading-relaxed">
-              We may update this Privacy Policy from time to time. Any changes will be posted on this page
-              with an updated &quot;Last updated&quot; date. We encourage you to review this policy periodically.
             </p>
           </section>
 

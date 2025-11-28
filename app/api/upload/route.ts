@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile } from 'fs/promises';
+import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import { randomBytes } from 'crypto';
 import { insertPhoto } from '@/lib/db';
@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate university
+    const universityFolder = university === 'xidian' ? 'xdu' : 'xsyu';
     if (!['xidian', 'xsyu'].includes(university)) {
       return NextResponse.json(
         { error: 'Invalid university' },
@@ -57,8 +58,11 @@ export async function POST(request: NextRequest) {
       const bytes = await photo.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
+      // Ensure upload directory exists (with university-specific subfolder)
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads', universityFolder);
+      await mkdir(uploadDir, { recursive: true });
+
       // Save file
-      const uploadDir = path.join(process.cwd(), 'public', 'uploads');
       const filePath = path.join(uploadDir, uniqueName);
       await writeFile(filePath, buffer);
 

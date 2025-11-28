@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface PhotoItem {
   file: File;
@@ -13,6 +14,11 @@ interface PhotoItem {
 const UNIVERSITY_NAMES = {
   xidian: 'Xidian University (西安电子科技大学)',
   xsyu: "Xi'an Shiyou University (西安石油大学)",
+};
+
+const UNIVERSITY_LOGOS = {
+  xidian: '/xidian-logo.png',
+  xsyu: '/xsyu-logo.png',
 };
 
 const UNIVERSITY_COLORS = {
@@ -137,9 +143,10 @@ export default function UploadPage() {
       if (response.ok) {
         setUploadSuccess(true);
         setPhotos([]);
+        // Clear success message after 3 seconds
         setTimeout(() => {
-          router.push('/');
-        }, 2000);
+          setUploadSuccess(false);
+        }, 3000);
       } else {
         alert('Upload failed. Please try again.');
       }
@@ -158,24 +165,25 @@ export default function UploadPage() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex justify-between items-center">
             <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <div className={`w-10 h-10 bg-gradient-to-br ${colors.gradient} rounded-xl flex items-center justify-center`}>
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden">
+                <Image
+                  src={UNIVERSITY_LOGOS[university]}
+                  alt={`${UNIVERSITY_NAMES[university]} Logo`}
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-contain"
+                />
               </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent">
                 Campus Collector
               </h1>
             </Link>
-            <div className="flex gap-6 text-sm font-medium">
-              <Link href="/guidelines" className="text-gray-600 hover:text-purple-600 transition-colors">
+            <div className="flex gap-3 text-sm font-medium">
+              <Link href="/guidelines" className="px-4 py-2 text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-all">
                 Guidelines
               </Link>
-              <Link href="/privacy" className="text-gray-600 hover:text-purple-600 transition-colors">
+              <Link href="/privacy" className="px-4 py-2 text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-all">
                 Privacy
-              </Link>
-              <Link href="/terms" className="text-gray-600 hover:text-purple-600 transition-colors">
-                Terms
               </Link>
             </div>
           </div>
@@ -194,10 +202,14 @@ export default function UploadPage() {
           </Link>
           <div className={`bg-gradient-to-br ${colors.bg} rounded-2xl p-8 border ${colors.border}`}>
             <div className="flex items-center gap-4 mb-3">
-              <div className={`w-16 h-16 bg-gradient-to-br ${colors.gradient} rounded-xl flex items-center justify-center shadow-lg`}>
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                </svg>
+              <div className="w-16 h-16 rounded-xl flex items-center justify-center shadow-lg overflow-hidden">
+                <Image
+                  src={UNIVERSITY_LOGOS[university]}
+                  alt={`${UNIVERSITY_NAMES[university]} Logo`}
+                  width={64}
+                  height={64}
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">Upload Photos</h1>
@@ -217,7 +229,7 @@ export default function UploadPage() {
               </div>
               <div>
                 <p className="font-bold text-green-900 text-lg">Success!</p>
-                <p className="text-green-700">Your photos have been uploaded successfully. Redirecting...</p>
+                <p className="text-green-700">Your photos have been uploaded successfully. You can continue uploading more photos.</p>
               </div>
             </div>
           </div>
@@ -329,7 +341,7 @@ export default function UploadPage() {
                             value={photo.description}
                             onChange={(e) => handleDescriptionChange(index, e.target.value)}
                             placeholder="e.g., Main library entrance during autumn..."
-                            className="w-full rounded-lg border-2 border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-200 p-3 text-sm transition-colors resize-none"
+                            className="w-full rounded-lg border-2 border-gray-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-200 p-3 text-sm text-gray-900 placeholder-gray-400 transition-colors resize-none"
                             rows={2}
                             disabled={uploading}
                           />
