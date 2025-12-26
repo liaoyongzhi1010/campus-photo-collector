@@ -1,82 +1,79 @@
 # Campus Photo Collector
 
-A Next.js web application for collecting and managing campus photos from multiple universities with AI-powered metadata analysis.
+A bilingual (EN/ZH) web application for collecting campus photos with AI-powered metadata analysis.
 
 ## Features
 
-- **Multi-University Support**: Xidian University (西安电子科技大学), Xi'an Shiyou University (西安石油大学), and Xi'an University of Technology (西安理工大学)
-- **Rich Metadata Collection**: Capture photo time, season, weather, location type, and photography style
-- **AI-Powered Analysis**: GLM-4.6V-Flash vision model integration for automatic metadata suggestion
-- **EXIF Data Extraction**: Automatically extracts GPS coordinates and focal length from photos
-- **Drag & Drop Upload**: User-friendly file upload with preview
-- **SQLite Database**: Efficient local storage with full metadata tracking
+- 🎓 **Multi-University Support** - Xidian, Xi'an Shiyou, Xi'an Tech, University of Bristol
+- 🤖 **AI Analysis** - GLM-4.6V-Flash vision model for automatic metadata tagging
+- 📸 **Smart EXIF Extraction** - GPS coordinates and focal length auto-detection
+- 🌐 **Bilingual Interface** - Full English/Chinese support
+- 🎨 **Rich Metadata** - Time, season, weather, location, style tagging
 
-## Getting Started
+## Quick Start
 
-### Prerequisites
-
-- Node.js 18+ and npm
-- GLM API Key (optional, for AI features) - Get one at https://open.bigmodel.cn/usercenter/apikeys
-
-### Installation
-
-1. Clone or navigate to the project directory:
 ```bash
-cd campus-photo-collector
-```
-
-2. Install dependencies:
-```bash
+# Install dependencies
 npm install
-```
 
-3. Configure environment variables (optional):
-```bash
-# Copy the example file
+# Set up environment (optional - for AI features)
 cp .env.example .env
+# Edit .env and add your GLM API key from https://open.bigmodel.cn/usercenter/apikeys
 
-# Edit .env and add your GLM API Key
-# GLM_API_KEY=your_api_key_here
-```
-
-4. Start the development server:
-```bash
+# Run development server
 npm run dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
+Open [http://localhost:3000](http://localhost:3000)
 
-## Accessing Data with SQLite
+## Database
 
-```bash
-# Open the database
-sqlite3 data/photos.db
-
-# Query examples
-SELECT COUNT(*) FROM photos;
-SELECT * FROM photos WHERE university = 'xidian';
-SELECT university, COUNT(*) as count FROM photos GROUP BY university;
-```
-
-## Database Schema
+SQLite database at `data/photos.db`:
 
 ```sql
+-- Schema
 CREATE TABLE photos (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  university TEXT NOT NULL,           -- 'xidian', 'xsyu', or 'xaut'
-  filename TEXT NOT NULL,             -- Unique filename in uploads folder
-  original_name TEXT NOT NULL,        -- Original filename from user
-  description TEXT,                   -- Optional user description
-  file_size INTEGER NOT NULL,         -- File size in bytes
+  university TEXT NOT NULL,           -- 'xidian', 'xsyu', 'xaut', 'bristol'
+  filename TEXT NOT NULL,             -- Server-side filename
+  original_name TEXT NOT NULL,        -- User's original filename
+  description TEXT,                   -- Optional description
+  file_size INTEGER NOT NULL,         -- Bytes
   mime_type TEXT NOT NULL,            -- image/jpeg or image/png
+  photo_time TEXT,                    -- dawn, morning, noon, afternoon, dusk, night
+  photo_season TEXT,                  -- spring, summer, autumn, winter
+  photo_weather TEXT,                 -- sunny, cloudy, overcast, rainy, snowy
+  photo_location TEXT,                -- teaching, library, sports, dorm, cafeteria, etc.
+  photo_style TEXT,                   -- landscape, architecture, night, aerial, etc.
+  latitude REAL,                      -- GPS latitude from EXIF
+  longitude REAL,                     -- GPS longitude from EXIF
+  focal_length REAL,                  -- Camera focal length (mm)
   uploaded_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Query examples
+SELECT COUNT(*) FROM photos;
+SELECT * FROM photos WHERE university = 'xidian';
+SELECT university, COUNT(*) FROM photos GROUP BY university;
 ```
+
+## Docker Deployment
+
+```bash
+# Build image
+docker build -t campus-photo-collector .
+
+# Run container
+docker run -p 3000:3000 -v $(pwd)/data:/app/data -v $(pwd)/public/uploads:/app/public/uploads campus-photo-collector
+```
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS 4
+- **Backend**: Next.js API Routes, SQLite with better-sqlite3
+- **AI**: GLM-4.6V-Flash vision model
+- **Deployment**: Docker, Node.js 20
 
 ## License
 
-This project is created for research and educational purposes.
-
-## Support
-
-For issues or questions, please refer to the university's research office or computer science department.
+Research and educational purposes.

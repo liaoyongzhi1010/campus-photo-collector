@@ -10,7 +10,7 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - GLM_API_KEY=1629a5d8133fe6669e5848cd8f02fc57.vDfxUQmHKx1IlTCz
+      - GLM_API_KEY=${GLM_API_KEY:-your_api_key_here}
     volumes:
       # 数据库持久化存储
       - photo_data:/app/data
