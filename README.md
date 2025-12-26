@@ -26,37 +26,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
-## Database
-
-SQLite database at `data/photos.db`:
-
-```sql
--- Schema
-CREATE TABLE photos (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  university TEXT NOT NULL,           -- 'xidian', 'xsyu', 'xaut', 'bristol'
-  filename TEXT NOT NULL,             -- Server-side filename
-  original_name TEXT NOT NULL,        -- User's original filename
-  description TEXT,                   -- Optional description
-  file_size INTEGER NOT NULL,         -- Bytes
-  mime_type TEXT NOT NULL,            -- image/jpeg or image/png
-  photo_time TEXT,                    -- dawn, morning, noon, afternoon, dusk, night
-  photo_season TEXT,                  -- spring, summer, autumn, winter
-  photo_weather TEXT,                 -- sunny, cloudy, overcast, rainy, snowy
-  photo_location TEXT,                -- teaching, library, sports, dorm, cafeteria, etc.
-  photo_style TEXT,                   -- landscape, architecture, night, aerial, etc.
-  latitude REAL,                      -- GPS latitude from EXIF
-  longitude REAL,                     -- GPS longitude from EXIF
-  focal_length REAL,                  -- Camera focal length (mm)
-  uploaded_at DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
--- Query examples
-SELECT COUNT(*) FROM photos;
-SELECT * FROM photos WHERE university = 'xidian';
-SELECT university, COUNT(*) FROM photos GROUP BY university;
-```
-
 ## Docker Deployment
 
 ```bash
