@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: campus-photo-collector
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - GLM_API_KEY=1629a5d8133fe6669e5848cd8f02fc57.vDfxUQmHKx1IlTCz
+    volumes:
+      # 数据库持久化存储
+      - photo_data:/app/data
+      # 上传的照片存储（如果有的话）
+      - photo_uploads:/app/public/uploads
+    restart: unless-stopped
+
+volumes:
+  # 持久化数据库文件
+  photo_data:
+    driver: local
+  # 持久化上传的照片
+  photo_uploads:
+    driver: local
