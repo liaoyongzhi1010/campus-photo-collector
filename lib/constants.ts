@@ -345,9 +345,20 @@ export const UPLOAD_PAGE_TEXT: Record<Language, {
 
   // AI Analysis
   aiSmartFill: string;
+  aiSmartFillHint: string;
   analyzing: string;
+  analyzingTitle: string;
+  analyzingDesc: string;
   aiConfidence: string;
   aiReasoning: string;
+  aiAutoFilled: string;
+  aiAnalysis: string;
+  aiAutoSelected: string;
+  aiTimeLabel: string;
+  aiSeasonLabel: string;
+  aiWeatherLabel: string;
+  aiLocationLabel: string;
+  aiStyleLabel: string;
   reanalyze: string;
 
   // Submit

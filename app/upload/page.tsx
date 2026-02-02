@@ -366,7 +366,7 @@ function UploadPageContent() {
               <div className="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden">
                 <Image
                   src={UNIVERSITY_LOGOS[university]}
-                  alt={`${UNIVERSITY_NAMES[university]} Logo`}
+                  alt={`${UNIVERSITY_NAMES[language][university]} Logo`}
                   width={40}
                   height={40}
                   className="w-full h-full object-contain"
@@ -403,7 +403,7 @@ function UploadPageContent() {
               <div className="w-16 h-16 rounded-xl flex items-center justify-center shadow-lg overflow-hidden">
                 <Image
                   src={UNIVERSITY_LOGOS[university]}
-                  alt={`${UNIVERSITY_NAMES[university]} Logo`}
+                  alt={`${UNIVERSITY_NAMES[language][university]} Logo`}
                   width={64}
                   height={64}
                   className="w-full h-full object-contain"
