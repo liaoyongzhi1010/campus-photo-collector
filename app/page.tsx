@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { PAGE_TEXT, UNIVERSITY_NAMES, ALLOWED_UNIVERSITIES, UNIVERSITY_COLORS, University } from "@/lib/constants";
+import { PAGE_TEXT, UNIVERSITY_NAMES, ALLOWED_UNIVERSITIES, UNIVERSITY_COLORS, UNIVERSITY_LOGOS, University } from "@/lib/constants";
 import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Home() {
@@ -94,7 +94,7 @@ export default function Home() {
                     {/* Icon */}
                     <div className="w-24 h-24 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 overflow-hidden">
                       <Image
-                        src={`/${university}-logo.png`}
+                        src={UNIVERSITY_LOGOS[university]}
                         alt={`${UNIVERSITY_NAMES[language][university]} Logo`}
                         width={96}
                         height={96}

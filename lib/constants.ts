@@ -34,7 +34,7 @@ export const UNIVERSITY_LOGOS: Record<University, string> = {
   xidian: '/xidian-logo.png',
   xsyu: '/xsyu-logo.png',
   xaut: '/xaut-logo.png',
-  bristol: '/bristol-logo.webp',
+  bristol: '/bristol-logo.jpg',
 };
 
 export const UNIVERSITY_COLORS: Record<University, {
