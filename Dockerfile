@@ -1,6 +1,7 @@
 # 第一阶段：依赖安装
-FROM node:20-alpine AS deps
-RUN apk add --no-cache libc6-compat python3 make g++
+FROM node:20-bookworm-slim AS deps
+RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ \
+  && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
 # 复制包管理文件
@@ -8,8 +9,9 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 # 第二阶段：构建应用
-FROM node:20-alpine AS builder
-RUN apk add --no-cache libc6-compat python3 make g++
+FROM node:20-bookworm-slim AS builder
+RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ \
+  && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
@@ -21,8 +23,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
 # 第三阶段：生产运行
-FROM node:20-alpine AS runner
-RUN apk add --no-cache libc6-compat
+FROM node:20-bookworm-slim AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
