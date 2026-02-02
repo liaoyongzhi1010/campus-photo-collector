@@ -1,27 +1,31 @@
-version: '3.8'
-
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: campus-photo-collector:amd64
     container_name: campus-photo-collector
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - GLM_API_KEY=${GLM_API_KEY:-your_api_key_here}
+      - OLLAMA_API_URL=http://ollama:11434/api/chat
+      - OLLAMA_MODEL=qwen2.5vl:3b
     volumes:
-      # 数据库持久化存储
       - photo_data:/app/data
-      # 上传的照片存储（如果有的话）
       - photo_uploads:/app/public/uploads
+    depends_on:
+      - ollama
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    volumes:
+      - ollama_data:/root/.ollama
     restart: unless-stopped
 
 volumes:
-  # 持久化数据库文件
   photo_data:
     driver: local
-  # 持久化上传的照片
   photo_uploads:
+    driver: local
+  ollama_data:
     driver: local
