@@ -24,6 +24,7 @@
 # misc
 .DS_Store
 *.pem
+campus-photo-collector-amd64.tar.gz
 
 # debug
 npm-debug.log*
