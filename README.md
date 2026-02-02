@@ -6,7 +6,7 @@ A Next.js web application for collecting and managing campus photos from multipl
 
 - **Multi-University Support**: Xidian University (西安电子科技大学), Xi'an Shiyou University (西安石油大学), Xi'an University of Technology (西安理工大学), and University of Bristol (布里斯托大学)
 - **Rich Metadata Collection**: Capture photo time, season, weather, location type, and photography style
-- **AI-Powered Analysis**: GLM-4.6V-Flash vision model integration for automatic metadata suggestion
+- **AI-Powered Analysis**: Local Ollama vision model integration for automatic metadata suggestion
 - **EXIF Data Extraction**: Automatically extracts GPS coordinates and focal length from photos
 - **Drag & Drop Upload**: User-friendly file upload with preview
 - **SQLite Database**: Efficient local storage with full metadata tracking
@@ -16,7 +16,7 @@ A Next.js web application for collecting and managing campus photos from multipl
 ### Prerequisites
 
 - Node.js 18+ and npm
-- GLM API Key (optional, for AI features) - Get one at https://open.bigmodel.cn/usercenter/apikeys
+- Ollama (optional, for AI features)
 
 ### Installation
 
@@ -35,8 +35,9 @@ npm install
 # Copy the example file
 cp .env.example .env
 
-# Edit .env and add your GLM API Key
-# GLM_API_KEY=your_api_key_here
+# Edit .env and set Ollama parameters if needed
+# OLLAMA_API_URL=http://localhost:11434/api/chat
+# OLLAMA_MODEL=qwen2.5vl:3b
 ```
 
 4. Start the development server:
@@ -46,15 +47,19 @@ npm run dev
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Docker Deployment
+## Docker Deployment (amd64 image for x86_64 Ubuntu)
 
-Using docker-compose:
+Build the amd64 image on this machine (arm64) and export it:
 ```bash
-# Set your API key in environment variable or .env file
-export GLM_API_KEY="your_api_key_here"
+docker buildx build --platform linux/amd64 -t campus-photo-collector:amd64 --load .
+docker save campus-photo-collector:amd64 | gzip > campus-photo-collector-amd64.tar.gz
+```
 
-# Start services
-docker-compose up -d
+Copy `campus-photo-collector-amd64.tar.gz` and `docker-compose.yml` to your Ubuntu server, then:
+```bash
+docker load -i campus-photo-collector-amd64.tar.gz
+docker compose up -d
+docker compose exec ollama ollama pull qwen2.5vl:3b
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser
@@ -62,4 +67,3 @@ Open [http://localhost:3000](http://localhost:3000) in your browser
 ## License
 
 Research and educational purposes.
-
